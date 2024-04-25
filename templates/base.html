@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %} </title>
+    <link rel="stylesheet" href="{{url_for('static',filename='c.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='t.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='font-awesome.css')}}">
+
+    <style>
+        /* Menu styles */
+        
+        body {
+            background-image: url(/static/m.jpg);
+            background-attachment: fixed;
+        }
+        
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        /* Change the link color on hover */
+        
+        li a:hover {
+            background-color: #111;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <ul>
+        <li>
+            <a href="{{url_for('pro',token=token)}}">Provide Milk</a>
+        </li>
+        <li>
+            <a href="{{url_for('data',token=token)}}">Details</a>
+        </li>
+    </ul>
+
+    <h1>welcome {{username}}</h1>
+
+
+    <div class="container">
+
+        <p>welcome{{username}}</p>
+        <table class="table">
+            <tr>
+                <td>Id</td>
+                <td><input type="text" id="id" name="id" /></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" id="name" name="name" value="{{username}}" /></td>
+            </tr>
+
+            <tr>
+                <td>Email</td>
+                <td><input type="email" id="email" name="email" /></td>
+            </tr>
+
+
+            <tr>
+                <td>Gender</td>
+                <td>
+                    Male: <input type="radio" id="" class="gender" name="gender" value="male" /> Female: <input type="radio" class="gender" name="gender" value="female" />
+                </td>
+            </tr>
+            <tr>
+                <td>type</td>
+                <td>
+                    <select id="group" name="group">
+            <option value="Individual">Individual</option>
+            <option value="Organization">Organization</option>
+           \
+         </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Quntity</td>
+                <td>
+                    <select id="qun" name="qun">
+            <option value="1">1L</option>
+            <option value="2">2L</option>
+            <option value="3">3L</option>
+            <option value="4">4L</option>
+            <option value="5">5L</option>
+            <option value="10">10L</option>
+         </select>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td colspan="2">
+                    <button id="add">add</button> </td>
+
+            </tr>
+        </table>
+
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#add').click(function() {
+                const id = $("#id").val();
+                const email = $("#email").val();
+                const name = $("#name").val();
+                const gender = $(".gender").val();
+                const quntity = $("#qun").val();
+                const group = $("#group").val();
+
+                console.log(id, email, name, gender, quntity, group);
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{url_for('pro')}}",
+                    data: {
+                        id,
+                        name,
+                        email,
+                        gender,
+                        quntity,
+                        group
+                    }
+                })
+            })
+
+        })
+    </script>
+
+
+    {% block body %} {% endblock %}
+
+</body>
+
+</html>
