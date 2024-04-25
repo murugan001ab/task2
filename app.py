@@ -10,7 +10,7 @@ app.config['SECRET_KEY'] = 'your_secret_key'
 
 
 # Registration route
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
